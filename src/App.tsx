@@ -378,28 +378,28 @@ export default function App() {
           <motion.div 
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
-            className="bg-white p-6 sm:p-12 rounded-[2.5rem] sm:rounded-[4rem] shadow-2xl shadow-rose-200 flex flex-col items-center gap-4 sm:gap-8 border-8 border-white max-w-[90vw] text-center"
+            className="bg-white p-6 sm:p-12 landscape:p-4 rounded-[2.5rem] sm:rounded-[4rem] landscape:rounded-3xl shadow-2xl shadow-rose-200 flex flex-col items-center gap-4 sm:gap-8 landscape:gap-2 border-8 landscape:border-4 border-white max-w-[90vw] text-center"
           >
-            <div className="w-20 h-20 sm:w-32 sm:h-32 bg-rose-400 rounded-[2rem] sm:rounded-[3rem] flex items-center justify-center shadow-2xl shadow-rose-200 animate-bounce">
-              <Cat className="w-12 h-12 sm:w-20 sm:h-20 text-white" />
+            <div className="w-20 h-20 sm:w-32 sm:h-32 landscape:w-12 landscape:h-12 bg-rose-400 rounded-[2rem] sm:rounded-[3rem] landscape:rounded-xl flex items-center justify-center shadow-2xl shadow-rose-200 animate-bounce">
+              <Cat className="w-12 h-12 sm:w-20 sm:h-20 landscape:w-8 landscape:h-8 text-white" />
             </div>
             <div>
-              <h2 className="text-3xl sm:text-5xl font-black text-rose-600 mb-2">Kitty 斗地主</h2>
-              <p className="text-rose-400 font-bold text-base sm:text-xl">点击开始，开启猫咪对战之旅！喵~</p>
+              <h2 className="text-3xl sm:text-5xl landscape:text-2xl font-black text-rose-600 mb-2 landscape:mb-1">Kitty 斗地主</h2>
+              <p className="text-rose-400 font-bold text-base sm:text-xl landscape:text-xs">点击开始，开启猫咪对战之旅！喵~</p>
             </div>
 
             {/* Difficulty Selection */}
-            <div className="flex flex-col gap-3 w-full max-w-xs">
-              <div className="flex items-center justify-center gap-2 text-rose-400 font-black text-lg">
-                <Brain className="w-5 h-5" />
+            <div className="flex flex-col gap-3 landscape:gap-1 w-full max-w-xs">
+              <div className="flex items-center justify-center gap-2 text-rose-400 font-black text-lg landscape:text-sm">
+                <Brain className="w-5 h-5 landscape:w-3 landscape:h-3" />
                 <span>选择难度</span>
               </div>
-              <div className="grid grid-cols-2 gap-2">
+              <div className="grid grid-cols-2 gap-2 landscape:gap-1">
                 {Object.entries(DIFFICULTY_MAP).map(([key, label]) => (
                   <button
                     key={key}
                     onClick={() => setDifficulty(key as Difficulty)}
-                    className={`px-4 py-2 rounded-2xl font-black text-sm transition-all border-2 ${difficulty === key ? 'bg-rose-500 text-white border-rose-500 shadow-lg scale-105' : 'bg-white text-rose-400 border-rose-100 hover:border-rose-300'}`}
+                    className={`px-4 py-2 landscape:px-2 landscape:py-1 rounded-2xl landscape:rounded-lg font-black text-sm landscape:text-[10px] transition-all border-2 ${difficulty === key ? 'bg-rose-500 text-white border-rose-500 shadow-lg scale-105' : 'bg-white text-rose-400 border-rose-100 hover:border-rose-300'}`}
                   >
                     {label}
                   </button>
@@ -409,18 +409,18 @@ export default function App() {
 
             <button 
               onClick={startNewGame}
-              className="group relative px-12 py-4 sm:px-16 sm:py-6 bg-rose-500 hover:bg-rose-600 text-white rounded-3xl font-black text-xl sm:text-3xl shadow-2xl shadow-rose-200 transition-all hover:scale-110 active:scale-95 flex items-center gap-4 overflow-hidden"
+              className="group relative px-12 py-4 sm:px-16 sm:py-6 landscape:px-8 landscape:py-2 bg-rose-500 hover:bg-rose-600 text-white rounded-3xl landscape:rounded-xl font-black text-xl sm:text-3xl landscape:text-lg shadow-2xl shadow-rose-200 transition-all hover:scale-110 active:scale-95 flex items-center gap-4 landscape:gap-2 overflow-hidden"
             >
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
-              <Play className="w-8 h-8 sm:w-10 sm:h-10 fill-current" />
+              <Play className="w-8 h-8 sm:w-10 sm:h-10 landscape:w-5 landscape:h-5 fill-current" />
               开始游戏
             </button>
-            <div className="flex flex-col items-center gap-2 text-rose-300">
-              <div className="flex items-center gap-2 text-xs sm:text-sm font-bold">
-                <Smartphone className="w-4 h-4" />
+            <div className="flex flex-col items-center gap-2 landscape:gap-0.5 text-rose-300">
+              <div className="flex items-center gap-2 text-xs sm:text-sm landscape:text-[10px] font-bold">
+                <Smartphone className="w-4 h-4 landscape:w-3 landscape:h-3" />
                 <span>推荐横屏体验，效果更佳喵！</span>
               </div>
-              <p className="text-[10px] opacity-50">点击按钮将同时开启背景音乐与音效</p>
+              <p className="text-[10px] landscape:text-[8px] opacity-50">点击按钮将同时开启背景音乐与音效</p>
             </div>
           </motion.div>
         </div>
@@ -435,52 +435,52 @@ export default function App() {
       </div>
 
       {/* Header */}
-      <header className="p-2 sm:p-4 flex justify-between items-center bg-white/80 backdrop-blur-md border-b border-rose-100 z-50">
-        <div className="flex items-center gap-2 sm:gap-3">
-          <div className="w-8 h-8 sm:w-12 sm:h-12 bg-rose-400 rounded-xl sm:rounded-2xl flex items-center justify-center shadow-lg shadow-rose-200">
-            <Cat className="w-5 h-5 sm:w-7 sm:h-7 text-white" />
+      <header className="p-2 sm:p-4 landscape:p-1 flex justify-between items-center bg-white/80 backdrop-blur-md border-b border-rose-100 z-50">
+        <div className="flex items-center gap-2 sm:gap-3 landscape:gap-1">
+          <div className="w-8 h-8 sm:w-12 sm:h-12 landscape:w-6 landscape:h-6 bg-rose-400 rounded-xl sm:rounded-2xl landscape:rounded-lg flex items-center justify-center shadow-lg shadow-rose-200">
+            <Cat className="w-5 h-5 sm:w-7 sm:h-7 landscape:w-4 landscape:h-4 text-white" />
           </div>
           <div>
-            <h1 className="text-sm sm:text-xl font-black tracking-tight text-rose-600 leading-tight">Kitty 斗地主</h1>
+            <h1 className="text-sm sm:text-xl landscape:text-xs font-black tracking-tight text-rose-600 leading-tight">Kitty 斗地主</h1>
             <div className="flex items-center gap-1 text-rose-400">
-              <Brain className="w-3 h-3" />
-              <span className="text-[10px] font-bold uppercase tracking-widest">{DIFFICULTY_MAP[difficulty]}模式</span>
+              <Brain className="w-3 h-3 landscape:w-2 landscape:h-2" />
+              <span className="text-[10px] landscape:text-[8px] font-bold uppercase tracking-widest">{DIFFICULTY_MAP[difficulty]}模式</span>
             </div>
           </div>
         </div>
         
-        <div className="flex items-center gap-2 sm:gap-4">
+        <div className="flex items-center gap-2 sm:gap-4 landscape:gap-1">
           <button 
             onClick={toggleMute}
-            className="p-2 sm:p-3 hover:bg-rose-50 rounded-2xl transition-colors text-rose-400 border border-transparent hover:border-rose-100"
+            className="p-2 sm:p-3 landscape:p-1 hover:bg-rose-50 rounded-2xl transition-colors text-rose-400 border border-transparent hover:border-rose-100"
           >
-            {isMuted ? <VolumeX className="w-5 h-5 sm:w-6 sm:h-6" /> : <Volume2 className="w-5 h-5 sm:w-6 sm:h-6" />}
+            {isMuted ? <VolumeX className="w-5 h-5 sm:w-6 sm:h-6 landscape:w-4 landscape:h-4" /> : <Volume2 className="w-5 h-5 sm:w-6 sm:h-6 landscape:w-4 landscape:h-4" />}
           </button>
           
           <button 
             onClick={() => setPhase(GamePhase.WAITING)}
-            className="p-2 sm:p-3 hover:bg-rose-50 rounded-2xl transition-colors text-rose-400 border border-transparent hover:border-rose-100"
+            className="p-2 sm:p-3 landscape:p-1 hover:bg-rose-50 rounded-2xl transition-colors text-rose-400 border border-transparent hover:border-rose-100"
           >
-            <RotateCcw className="w-5 h-5 sm:w-6 sm:h-6" />
+            <RotateCcw className="w-5 h-5 sm:w-6 sm:h-6 landscape:w-4 landscape:h-4" />
           </button>
         </div>
       </header>
 
       {/* Game Board */}
-      <main className="flex-1 relative flex flex-col items-center justify-center p-2 sm:p-8 overflow-hidden">
-        {/* AI Players - Mimi (Top) */}
-        <div className="absolute top-4 sm:top-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-10">
-          <div className={`w-12 h-12 sm:w-20 sm:h-20 rounded-[1.5rem] sm:rounded-[2.5rem] flex items-center justify-center border-4 transition-all duration-500 ${currentTurn === 1 ? 'bg-rose-400 border-white shadow-2xl scale-110' : 'bg-white border-rose-100 shadow-md'}`}>
-            <Cat className={`w-6 h-6 sm:w-10 sm:h-10 ${currentTurn === 1 ? 'text-white' : 'text-rose-300'}`} />
+      <main className="flex-1 relative flex flex-col items-center justify-center p-2 sm:p-8 landscape:p-1 overflow-hidden">
+        {/* AI Players - Mimi (Right) */}
+        <div className="absolute right-4 sm:right-10 top-1/2 -translate-y-1/2 flex flex-col items-center gap-2 z-10 landscape:right-2 landscape:gap-1">
+          <div className={`w-12 h-12 sm:w-20 sm:h-20 landscape:w-10 landscape:h-10 rounded-[1.5rem] sm:rounded-[2.5rem] landscape:rounded-xl flex items-center justify-center border-4 landscape:border-2 transition-all duration-500 ${currentTurn === 1 ? 'bg-rose-400 border-white shadow-2xl scale-110' : 'bg-white border-rose-100 shadow-md'}`}>
+            <Cat className={`w-6 h-6 sm:w-10 sm:h-10 landscape:w-5 landscape:h-5 ${currentTurn === 1 ? 'text-white' : 'text-rose-300'}`} />
           </div>
-          <div className="bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full border border-rose-100 shadow-sm flex flex-col items-center min-w-[80px]">
-            <p className="font-black text-[10px] sm:text-sm text-rose-700">{players[1].name}</p>
+          <div className="bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full border border-rose-100 shadow-sm flex flex-col items-center min-w-[80px] landscape:min-w-[60px]">
+            <p className="font-black text-[10px] sm:text-sm landscape:text-[8px] text-rose-700">{players[1].name}</p>
             <div className="flex items-center gap-1">
               <Star className="w-2 h-2 text-amber-400 fill-current" />
-              <p className="text-[8px] sm:text-[10px] font-bold text-rose-400">{players[1].hand.length} 张</p>
+              <p className="text-[8px] sm:text-[10px] landscape:text-[7px] font-bold text-rose-400">{players[1].hand.length} 张</p>
             </div>
             {players[1].role !== PlayerRole.UNDECIDED && (
-              <span className="text-[8px] px-2 py-0.5 bg-rose-500 text-white rounded-full uppercase font-black tracking-tighter mt-0.5">
+              <span className="text-[8px] landscape:text-[6px] px-2 py-0.5 bg-rose-500 text-white rounded-full uppercase font-black tracking-tighter mt-0.5">
                 {ROLE_MAP[players[1].role]}
               </span>
             )}
@@ -488,18 +488,18 @@ export default function App() {
         </div>
 
         {/* AI Players - Coco (Left) */}
-        <div className="absolute left-4 sm:left-10 top-1/2 -translate-y-1/2 flex flex-col items-center gap-2 z-10">
-          <div className={`w-12 h-12 sm:w-20 sm:h-20 rounded-[1.5rem] sm:rounded-[2.5rem] flex items-center justify-center border-4 transition-all duration-500 ${currentTurn === 2 ? 'bg-rose-400 border-white shadow-2xl scale-110' : 'bg-white border-rose-100 shadow-md'}`}>
-            <Cat className={`w-6 h-6 sm:w-10 sm:h-10 ${currentTurn === 2 ? 'text-white' : 'text-rose-300'}`} />
+        <div className="absolute left-4 sm:left-10 top-1/2 -translate-y-1/2 flex flex-col items-center gap-2 z-10 landscape:left-2 landscape:gap-1">
+          <div className={`w-12 h-12 sm:w-20 sm:h-20 landscape:w-10 landscape:h-10 rounded-[1.5rem] sm:rounded-[2.5rem] landscape:rounded-xl flex items-center justify-center border-4 landscape:border-2 transition-all duration-500 ${currentTurn === 2 ? 'bg-rose-400 border-white shadow-2xl scale-110' : 'bg-white border-rose-100 shadow-md'}`}>
+            <Cat className={`w-6 h-6 sm:w-10 sm:h-10 landscape:w-5 landscape:h-5 ${currentTurn === 2 ? 'text-white' : 'text-rose-300'}`} />
           </div>
-          <div className="bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full border border-rose-100 shadow-sm flex flex-col items-center min-w-[80px]">
-            <p className="font-black text-[10px] sm:text-sm text-rose-700">{players[2].name}</p>
+          <div className="bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full border border-rose-100 shadow-sm flex flex-col items-center min-w-[80px] landscape:min-w-[60px]">
+            <p className="font-black text-[10px] sm:text-sm landscape:text-[8px] text-rose-700">{players[2].name}</p>
             <div className="flex items-center gap-1">
               <Star className="w-2 h-2 text-amber-400 fill-current" />
-              <p className="text-[8px] sm:text-[10px] font-bold text-rose-400">{players[2].hand.length} 张</p>
+              <p className="text-[8px] sm:text-[10px] landscape:text-[7px] font-bold text-rose-400">{players[2].hand.length} 张</p>
             </div>
             {players[2].role !== PlayerRole.UNDECIDED && (
-              <span className="text-[8px] px-2 py-0.5 bg-rose-500 text-white rounded-full uppercase font-black tracking-tighter mt-0.5">
+              <span className="text-[8px] landscape:text-[6px] px-2 py-0.5 bg-rose-500 text-white rounded-full uppercase font-black tracking-tighter mt-0.5">
                 {ROLE_MAP[players[2].role]}
               </span>
             )}
@@ -507,19 +507,19 @@ export default function App() {
         </div>
 
         {/* Center Area: Last Play & Messages */}
-        <div className="flex flex-col items-center gap-4 sm:gap-10 w-full max-w-2xl px-4">
-          <div className="min-h-[7rem] sm:min-h-[12rem] h-auto flex items-center justify-center py-2">
+        <div className="flex flex-col items-center gap-4 sm:gap-10 landscape:gap-2 w-full max-w-2xl px-4">
+          <div className="min-h-[7rem] sm:min-h-[12rem] landscape:min-h-[4rem] h-auto flex items-center justify-center py-2">
             <AnimatePresence mode="wait">
               {lastPlay && lastPlayerId !== null && (
                 <motion.div 
                   key={`${lastPlayerId}-${lastPlay.cards.map(c => c.id).join('-')}`}
                   initial={{ scale: 0.5, opacity: 0, y: 50 }}
                   animate={{ scale: 1, opacity: 1, y: 0 }}
-                  className="flex flex-wrap justify-center gap-1 sm:gap-3 max-w-full overflow-visible"
+                  className="flex flex-wrap justify-center gap-1 sm:gap-3 landscape:gap-0.5 max-w-full overflow-visible"
                 >
                   {lastPlay.cards.map(card => (
-                    <div key={card.id} className={`w-10 h-16 sm:w-24 sm:h-36 bg-white rounded-lg sm:rounded-2xl shadow-2xl border border-rose-50 flex flex-col p-1 sm:p-3 flex-shrink-0 ${getCardColor(card.suit)}`}>
-                      <span className="text-xs sm:text-3xl font-black leading-none">{card.label}</span>
+                    <div key={card.id} className={`w-10 h-16 sm:w-24 sm:h-36 landscape:w-8 landscape:h-12 bg-white rounded-lg sm:rounded-2xl landscape:rounded-md shadow-2xl border border-rose-50 flex flex-col p-1 sm:p-3 landscape:p-0.5 flex-shrink-0 ${getCardColor(card.suit)}`}>
+                      <span className="text-xs sm:text-3xl landscape:text-[10px] font-black leading-none">{card.label}</span>
                       <div className="flex-1 flex items-center justify-center overflow-hidden rounded-md my-1 bg-rose-50/20 relative min-h-[40%]">
                         {card.rank === Rank.SMALL_JOKER || card.rank === Rank.BIG_JOKER ? (
                           <img 
@@ -531,12 +531,12 @@ export default function App() {
                             referrerPolicy="no-referrer"
                           />
                         ) : (
-                          <span className="text-2xl sm:text-8xl font-black opacity-10">{card.label}</span>
+                          <span className="text-2xl sm:text-8xl landscape:text-xl font-black opacity-10">{card.label}</span>
                         )}
                       </div>
                       <div className="flex justify-between items-end rotate-180">
-                        <span className="text-xs sm:text-3xl font-black leading-none">{card.label}</span>
-                        <span className="text-[8px] sm:text-xl">{card.suit}</span>
+                        <span className="text-xs sm:text-3xl landscape:text-[10px] font-black leading-none">{card.label}</span>
+                        <span className="text-[8px] sm:text-xl landscape:text-[6px]">{card.suit}</span>
                       </div>
                     </div>
                   ))}
@@ -545,27 +545,27 @@ export default function App() {
             </AnimatePresence>
           </div>
 
-          <div className="bg-white/80 backdrop-blur-md px-6 py-3 sm:px-12 sm:py-6 rounded-[2rem] sm:rounded-[3rem] border-4 border-white shadow-2xl shadow-rose-100/50 text-center max-w-md">
-            <p className="text-sm sm:text-2xl font-black text-rose-600 tracking-tight leading-tight">{gameMessage}</p>
+          <div className="bg-white/80 backdrop-blur-md px-6 py-3 sm:px-12 sm:py-6 landscape:px-4 landscape:py-1 rounded-[2rem] sm:rounded-[3rem] landscape:rounded-xl border-4 landscape:border-2 border-white shadow-2xl shadow-rose-100/50 text-center max-w-md">
+            <p className="text-sm sm:text-2xl landscape:text-xs font-black text-rose-600 tracking-tight leading-tight">{gameMessage}</p>
           </div>
 
           {/* Controls */}
-          <div className="flex flex-wrap justify-center gap-2 sm:gap-6 h-14 sm:h-20">
+          <div className="flex flex-wrap justify-center gap-2 sm:gap-6 landscape:gap-2 h-14 sm:h-20 landscape:h-8">
             {phase === GamePhase.BIDDING && currentTurn === 0 && (
-              <div className="flex gap-2 sm:gap-4">
+              <div className="flex gap-2 sm:gap-4 landscape:gap-1">
                 {[1, 2, 3].map(bid => (
                   <button
                     key={bid}
                     disabled={bid <= highestBid}
                     onClick={() => handleBid(bid)}
-                    className={`px-4 sm:px-10 py-2 sm:py-4 rounded-xl sm:rounded-3xl font-black text-sm sm:text-xl transition-all shadow-xl ${bid <= highestBid ? 'bg-slate-100 text-slate-300 cursor-not-allowed' : 'bg-rose-400 hover:bg-rose-500 text-white shadow-rose-200 hover:scale-110 active:scale-95'}`}
+                    className={`px-4 sm:px-10 py-2 sm:py-4 landscape:px-3 landscape:py-1 rounded-xl sm:rounded-3xl landscape:rounded-lg font-black text-sm sm:text-xl landscape:text-[10px] transition-all shadow-xl ${bid <= highestBid ? 'bg-slate-100 text-slate-300 cursor-not-allowed' : 'bg-rose-400 hover:bg-rose-500 text-white shadow-rose-200 hover:scale-110 active:scale-95'}`}
                   >
                     {bid}分
                   </button>
                 ))}
                 <button
                   onClick={() => handleBid(0)}
-                  className="px-4 sm:px-10 py-2 sm:py-4 bg-white hover:bg-rose-50 text-rose-400 rounded-xl sm:rounded-3xl font-black text-sm sm:text-xl border-2 border-rose-100 transition-all shadow-xl hover:scale-110 active:scale-95"
+                  className="px-4 sm:px-10 py-2 sm:py-4 landscape:px-3 landscape:py-1 bg-white hover:bg-rose-50 text-rose-400 rounded-xl sm:rounded-3xl landscape:rounded-lg font-black text-sm sm:text-xl landscape:text-[10px] border-2 border-rose-100 transition-all shadow-xl hover:scale-110 active:scale-95"
                 >
                   不叫
                 </button>
@@ -573,20 +573,20 @@ export default function App() {
             )}
 
             {phase === GamePhase.PLAYING && currentTurn === 0 && (
-              <div className="flex gap-2 sm:gap-6">
+              <div className="flex gap-2 sm:gap-6 landscape:gap-2">
                 <button
                   onClick={() => handlePlay(players[0].hand.filter(c => selectedCards.includes(c.id)))}
-                  className="px-8 sm:px-14 py-2 sm:py-4 bg-rose-500 hover:bg-rose-600 text-white rounded-xl sm:rounded-3xl font-black text-sm sm:text-xl shadow-2xl shadow-rose-200 transition-all hover:scale-110 active:scale-95 flex items-center gap-3"
+                  className="px-8 sm:px-14 py-2 sm:py-4 landscape:px-4 landscape:py-1 bg-rose-500 hover:bg-rose-600 text-white rounded-xl sm:rounded-3xl landscape:rounded-lg font-black text-sm sm:text-xl landscape:text-[10px] shadow-2xl shadow-rose-200 transition-all hover:scale-110 active:scale-95 flex items-center gap-3 landscape:gap-1"
                 >
-                  <Play className="w-4 h-4 sm:w-6 sm:h-6 fill-current" />
+                  <Play className="w-4 h-4 sm:w-6 sm:h-6 landscape:w-3 landscape:h-3 fill-current" />
                   出牌
                 </button>
                 <button
                   disabled={lastPlayerId === 0 || lastPlayerId === null}
                   onClick={handlePass}
-                  className={`px-8 sm:px-14 py-2 sm:py-4 rounded-xl sm:rounded-3xl font-black text-sm sm:text-xl transition-all shadow-xl flex items-center gap-3 ${lastPlayerId === 0 || lastPlayerId === null ? 'bg-slate-100 text-slate-300 cursor-not-allowed' : 'bg-white hover:bg-rose-50 text-rose-400 border-2 border-rose-100 shadow-rose-100 hover:scale-110 active:scale-95'}`}
+                  className={`px-8 sm:px-14 py-2 sm:py-4 landscape:px-4 landscape:py-1 rounded-xl sm:rounded-3xl landscape:rounded-lg font-black text-sm sm:text-xl landscape:text-[10px] transition-all shadow-xl flex items-center gap-3 landscape:gap-1 ${lastPlayerId === 0 || lastPlayerId === null ? 'bg-slate-100 text-slate-300 cursor-not-allowed' : 'bg-white hover:bg-rose-50 text-rose-400 border-2 border-rose-100 shadow-rose-100 hover:scale-110 active:scale-95'}`}
                 >
-                  <SkipForward className="w-4 h-4 sm:w-6 sm:h-6" />
+                  <SkipForward className="w-4 h-4 sm:w-6 sm:h-6 landscape:w-3 landscape:h-3" />
                   不出
                 </button>
               </div>
@@ -595,9 +595,9 @@ export default function App() {
             {phase === GamePhase.GAME_OVER && (
               <button
                 onClick={() => setPhase(GamePhase.WAITING)}
-                className="px-10 sm:px-16 py-3 sm:py-5 bg-rose-500 hover:bg-rose-600 text-white rounded-xl sm:rounded-3xl font-black text-sm sm:text-2xl shadow-2xl shadow-rose-200 transition-all hover:scale-110 active:scale-95 flex items-center gap-4"
+                className="px-10 sm:px-16 py-3 sm:py-5 landscape:px-6 landscape:py-1 bg-rose-500 hover:bg-rose-600 text-white rounded-xl sm:rounded-3xl landscape:rounded-lg font-black text-sm sm:text-2xl landscape:text-xs shadow-2xl shadow-rose-200 transition-all hover:scale-110 active:scale-95 flex items-center gap-4 landscape:gap-2"
               >
-                <RotateCcw className="w-6 h-6 sm:w-8 sm:h-8" />
+                <RotateCcw className="w-6 h-6 sm:w-8 sm:h-8 landscape:w-4 landscape:h-4" />
                 再来一局
               </button>
             )}
@@ -606,15 +606,15 @@ export default function App() {
       </main>
 
       {/* Player Hand */}
-      <footer className="h-40 sm:h-64 bg-white/95 backdrop-blur-3xl border-t-4 border-rose-100 p-2 sm:p-6 relative flex justify-center z-40">
-        <div className="absolute -top-10 left-4 sm:left-10 flex items-center gap-3">
-          <div className={`w-10 h-10 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center border-4 transition-all duration-500 ${currentTurn === 0 ? 'bg-rose-400 border-white shadow-2xl scale-110' : 'bg-white border-rose-100 shadow-md'}`}>
-            <User className={`w-5 h-5 sm:w-10 sm:h-10 ${currentTurn === 0 ? 'text-white' : 'text-rose-300'}`} />
+      <footer className="h-40 sm:h-64 landscape:h-28 bg-white/95 backdrop-blur-3xl border-t-4 border-rose-100 p-2 sm:p-6 landscape:p-1 relative flex justify-center z-40">
+        <div className="absolute -top-10 left-4 sm:left-10 landscape:-top-6 landscape:left-2 flex items-center gap-3 landscape:gap-1">
+          <div className={`w-10 h-10 sm:w-16 sm:h-16 landscape:w-8 landscape:h-8 rounded-2xl landscape:rounded-lg flex items-center justify-center border-4 landscape:border-2 transition-all duration-500 ${currentTurn === 0 ? 'bg-rose-400 border-white shadow-2xl scale-110' : 'bg-white border-rose-100 shadow-md'}`}>
+            <User className={`w-5 h-5 sm:w-10 sm:h-10 landscape:w-4 landscape:h-4 ${currentTurn === 0 ? 'text-white' : 'text-rose-300'}`} />
           </div>
           <div className="bg-white/90 backdrop-blur-sm px-4 py-1 rounded-full border border-rose-100 shadow-sm">
-            <p className="font-black text-[10px] sm:text-xs text-rose-700">你的手牌</p>
+            <p className="font-black text-[10px] sm:text-xs landscape:text-[8px] text-rose-700">你的手牌</p>
             {players[0].role !== PlayerRole.UNDECIDED && (
-              <span className="text-[8px] px-2 py-0.5 bg-rose-500 text-white rounded-full uppercase font-black tracking-tighter block text-center mt-0.5">
+              <span className="text-[8px] landscape:text-[6px] px-2 py-0.5 bg-rose-500 text-white rounded-full uppercase font-black tracking-tighter block text-center mt-0.5">
                 {ROLE_MAP[players[0].role]}
               </span>
             )}
@@ -627,7 +627,8 @@ export default function App() {
             const totalCards = players[0].hand.length;
             
             // Responsive overlap
-            const baseOverlap = (typeof window !== 'undefined' && window.innerWidth < 640 ? 12 : 35);
+            const isLandscape = typeof window !== 'undefined' && window.innerWidth > window.innerHeight;
+            const baseOverlap = isLandscape ? 18 : (typeof window !== 'undefined' && window.innerWidth < 640 ? 12 : 35);
             const overlap = Math.min(baseOverlap, (typeof window !== 'undefined' ? window.innerWidth * 0.8 : 800) / totalCards);
             const offset = (index - (totalCards - 1) / 2) * overlap;
             
@@ -636,21 +637,21 @@ export default function App() {
                 key={card.id}
                 layoutId={card.id}
                 onClick={() => toggleCardSelection(card.id)}
-                className={`absolute w-12 h-20 sm:w-32 sm:h-48 bg-white rounded-xl sm:rounded-[2rem] shadow-2xl cursor-pointer flex flex-col p-1.5 sm:p-5 transition-all duration-300 border-2 border-rose-50/50 ${getCardColor(card.suit)} ${isSelected ? 'ring-4 ring-rose-400 ring-offset-2' : ''}`}
+                className={`absolute w-12 h-20 sm:w-32 sm:h-48 landscape:w-10 landscape:h-16 bg-white rounded-xl sm:rounded-[2rem] landscape:rounded-lg shadow-2xl cursor-pointer flex flex-col p-1.5 sm:p-5 landscape:p-1 transition-all duration-300 border-2 border-rose-50/50 ${getCardColor(card.suit)} ${isSelected ? 'ring-4 ring-rose-400 ring-offset-2' : ''}`}
                 style={{ 
                   left: `calc(50% + ${offset}px)`,
                   zIndex: index,
-                  transform: `translateX(-50%) ${isSelected ? 'translateY(-40px)' : ''}`,
+                  transform: `translateX(-50%) ${isSelected ? (isLandscape ? 'translateY(-20px)' : 'translateY(-40px)') : ''}`,
                 }}
                 whileHover={{ 
                   scale: 1.1, 
                   zIndex: 100, 
-                  y: isSelected ? -50 : -15 
+                  y: isSelected ? (isLandscape ? -30 : -50) : (isLandscape ? -10 : -15) 
                 }}
               >
                 <div className="flex justify-between items-start">
-                  <span className="text-sm sm:text-4xl font-black leading-none">{card.label}</span>
-                  <span className="text-[10px] sm:text-2xl">{card.suit}</span>
+                  <span className="text-sm sm:text-4xl landscape:text-xs font-black leading-none">{card.label}</span>
+                  <span className="text-[10px] sm:text-2xl landscape:text-[8px]">{card.suit}</span>
                 </div>
                 <div className="flex-1 flex items-center justify-center overflow-hidden rounded-xl my-1 bg-rose-50/10 relative min-h-[40%]">
                    {card.rank === Rank.SMALL_JOKER || card.rank === Rank.BIG_JOKER ? (
@@ -663,12 +664,12 @@ export default function App() {
                        referrerPolicy="no-referrer"
                      />
                    ) : (
-                     <span className="text-3xl sm:text-9xl font-black opacity-10">{card.label}</span>
+                     <span className="text-3xl sm:text-9xl landscape:text-xl font-black opacity-10">{card.label}</span>
                    )}
                 </div>
                 <div className="flex justify-between items-end rotate-180">
-                  <span className="text-sm sm:text-4xl font-black leading-none">{card.label}</span>
-                  <span className="text-[10px] sm:text-2xl">{card.suit}</span>
+                  <span className="text-sm sm:text-4xl landscape:text-xs font-black leading-none">{card.label}</span>
+                  <span className="text-[10px] sm:text-2xl landscape:text-[8px]">{card.suit}</span>
                 </div>
               </motion.div>
             );
