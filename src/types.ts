@@ -1,3 +1,10 @@
+export enum Difficulty {
+  BEGINNER = 'BEGINNER',
+  INTERMEDIATE = 'INTERMEDIATE',
+  EXPERT = 'EXPERT',
+  MASTER = 'MASTER',
+}
+
 export enum Suit {
   SPADE = '♠',
   HEART = '♥',
