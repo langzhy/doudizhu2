@@ -19,7 +19,7 @@ import {
 } from './types';
 import { createDeck, shuffle, sortCards } from './constants';
 import { getCardType, canPlay } from './gameLogic';
-import { Trophy, User, Cat, RotateCcw, Play, SkipForward, Heart, Star, PawPrint, Volume2, VolumeX, Smartphone, Brain } from 'lucide-react';
+import { Trophy, User, Cat, RotateCcw, Play, SkipForward, Heart, Star, PawPrint, Volume2, VolumeX, Smartphone, Brain, Maximize2, Minimize2 } from 'lucide-react';
 
 const INITIAL_PLAYERS: Player[] = [
   { id: 0, name: '你 (Kitty)', hand: [], role: PlayerRole.UNDECIDED, isAI: false, score: 0 },
@@ -60,13 +60,41 @@ export default function App() {
     };
     window.addEventListener('resize', handleResize);
     window.addEventListener('orientationchange', handleResize);
+    
+    // Fallback interval for iframe environments
+    const interval = setInterval(handleResize, 1000);
+
     return () => {
       window.removeEventListener('resize', handleResize);
       window.removeEventListener('orientationchange', handleResize);
+      clearInterval(interval);
     };
   }, []);
 
   const isLandscape = windowSize.width > windowSize.height;
+  const [isFullscreen, setIsFullscreen] = useState(false);
+
+  const toggleFullscreen = () => {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen().catch((e) => {
+        console.error(`Error attempting to enable full-screen mode: ${e.message}`);
+      });
+      setIsFullscreen(true);
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+        setIsFullscreen(false);
+      }
+    }
+  };
+
+  useEffect(() => {
+    const handleFullscreenChange = () => {
+      setIsFullscreen(!!document.fullscreenElement);
+    };
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
+    return () => document.removeEventListener('fullscreenchange', handleFullscreenChange);
+  }, []);
 
   // Audio refs using Howler
   const bgmRef = useRef<Howl | null>(null);
@@ -396,7 +424,28 @@ export default function App() {
   };
 
   return (
-    <div className="fixed inset-0 min-h-screen w-full bg-[#FFF9F2] text-slate-800 font-sans selection:bg-rose-200 overflow-hidden flex flex-col">
+    <div className="fixed inset-0 top-0 left-0 right-0 bottom-0 w-full h-[100dvh] bg-[#FFF9F2] text-slate-800 font-sans selection:bg-rose-200 overflow-hidden flex flex-col">
+      {/* Orientation Hint for Mobile Portrait */}
+      {!isLandscape && typeof window !== 'undefined' && window.innerWidth < 1024 && (
+        <div className="absolute inset-0 z-[200] bg-rose-500 flex flex-col items-center justify-center p-6 text-center text-white">
+          <motion.div
+            animate={{ rotate: 90 }}
+            transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+            className="mb-6"
+          >
+            <Smartphone className="w-20 h-20" />
+          </motion.div>
+          <h2 className="text-2xl font-black mb-2">请旋转手机</h2>
+          <p className="font-bold opacity-90">横屏模式下游戏体验更佳喵！</p>
+          <button 
+            onClick={() => setIsFullscreen(false)} // Just a dummy to trigger re-render or interaction
+            className="mt-8 px-6 py-2 bg-white text-rose-500 rounded-full font-black text-sm"
+          >
+            我知道了
+          </button>
+        </div>
+      )}
+
       {/* Start Overlay */}
       {phase === GamePhase.WAITING && (
         <div className="absolute inset-0 z-[100] flex items-center justify-center bg-rose-50/95 backdrop-blur-md">
@@ -475,6 +524,14 @@ export default function App() {
         </div>
         
         <div className="flex items-center gap-2 sm:gap-4 landscape:gap-1">
+          <button 
+            onClick={toggleFullscreen}
+            className="p-2 sm:p-3 landscape:p-1 hover:bg-rose-50 rounded-2xl transition-colors text-rose-400 border border-transparent hover:border-rose-100"
+            title="全屏模式"
+          >
+            {isFullscreen ? <Minimize2 className="w-5 h-5 sm:w-6 sm:h-6 landscape:w-4 landscape:h-4" /> : <Maximize2 className="w-5 h-5 sm:w-6 sm:h-6 landscape:w-4 landscape:h-4" />}
+          </button>
+
           <button 
             onClick={toggleMute}
             className="p-2 sm:p-3 landscape:p-1 hover:bg-rose-50 rounded-2xl transition-colors text-rose-400 border border-transparent hover:border-rose-100"
