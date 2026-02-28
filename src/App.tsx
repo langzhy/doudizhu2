@@ -43,6 +43,31 @@ export default function App() {
   const [isMuted, setIsMuted] = useState(false);
   const [difficulty, setDifficulty] = useState<Difficulty>(Difficulty.BEGINNER);
 
+  // Window size hook to handle orientation changes
+  const [windowSize, setWindowSize] = useState({
+    width: typeof window !== 'undefined' ? window.innerWidth : 0,
+    height: typeof window !== 'undefined' ? window.innerHeight : 0,
+  });
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowSize({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+      // Fix for mobile browser chrome issues on orientation change
+      window.scrollTo(0, 0);
+    };
+    window.addEventListener('resize', handleResize);
+    window.addEventListener('orientationchange', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      window.removeEventListener('orientationchange', handleResize);
+    };
+  }, []);
+
+  const isLandscape = windowSize.width > windowSize.height;
+
   // Audio refs using Howler
   const bgmRef = useRef<Howl | null>(null);
   const sfxRefs = useRef<Record<string, Howl | null>>({});
@@ -371,7 +396,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#FFF9F2] text-slate-800 font-sans selection:bg-rose-200 overflow-hidden flex flex-col relative">
+    <div className="fixed inset-0 min-h-screen w-full bg-[#FFF9F2] text-slate-800 font-sans selection:bg-rose-200 overflow-hidden flex flex-col">
       {/* Start Overlay */}
       {phase === GamePhase.WAITING && (
         <div className="absolute inset-0 z-[100] flex items-center justify-center bg-rose-50/95 backdrop-blur-md">
@@ -467,20 +492,20 @@ export default function App() {
       </header>
 
       {/* Game Board */}
-      <main className="flex-1 relative flex flex-col items-center justify-center p-2 sm:p-8 landscape:p-1 overflow-hidden">
+      <main className={`flex-1 relative flex flex-col items-center justify-center p-2 sm:p-8 ${isLandscape ? 'p-1' : ''} overflow-hidden`}>
         {/* AI Players - Mimi (Right) */}
-        <div className="absolute right-4 sm:right-10 top-1/2 -translate-y-1/2 flex flex-col items-center gap-2 z-10 landscape:right-2 landscape:gap-1">
-          <div className={`w-12 h-12 sm:w-20 sm:h-20 landscape:w-10 landscape:h-10 rounded-[1.5rem] sm:rounded-[2.5rem] landscape:rounded-xl flex items-center justify-center border-4 landscape:border-2 transition-all duration-500 ${currentTurn === 1 ? 'bg-rose-400 border-white shadow-2xl scale-110' : 'bg-white border-rose-100 shadow-md'}`}>
-            <Cat className={`w-6 h-6 sm:w-10 sm:h-10 landscape:w-5 landscape:h-5 ${currentTurn === 1 ? 'text-white' : 'text-rose-300'}`} />
+        <div className={`absolute right-4 sm:right-10 top-1/2 -translate-y-1/2 flex flex-col items-center gap-2 z-10 ${isLandscape ? 'right-2 gap-1' : ''}`}>
+          <div className={`w-12 h-12 sm:w-20 sm:h-20 ${isLandscape ? 'w-10 h-10 rounded-xl border-2' : 'rounded-[1.5rem] sm:rounded-[2.5rem] border-4'} flex items-center justify-center transition-all duration-500 ${currentTurn === 1 ? 'bg-rose-400 border-white shadow-2xl scale-110' : 'bg-white border-rose-100 shadow-md'}`}>
+            <Cat className={`w-6 h-6 sm:w-10 sm:h-10 ${isLandscape ? 'w-5 h-5' : ''} ${currentTurn === 1 ? 'text-white' : 'text-rose-300'}`} />
           </div>
-          <div className="bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full border border-rose-100 shadow-sm flex flex-col items-center min-w-[80px] landscape:min-w-[60px]">
-            <p className="font-black text-[10px] sm:text-sm landscape:text-[8px] text-rose-700">{players[1].name}</p>
+          <div className={`bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full border border-rose-100 shadow-sm flex flex-col items-center min-w-[80px] ${isLandscape ? 'min-w-[60px]' : ''}`}>
+            <p className={`font-black text-[10px] sm:text-sm ${isLandscape ? 'text-[8px]' : ''} text-rose-700`}>{players[1].name}</p>
             <div className="flex items-center gap-1">
               <Star className="w-2 h-2 text-amber-400 fill-current" />
-              <p className="text-[8px] sm:text-[10px] landscape:text-[7px] font-bold text-rose-400">{players[1].hand.length} 张</p>
+              <p className={`text-[8px] sm:text-[10px] ${isLandscape ? 'text-[7px]' : ''} font-bold text-rose-400`}>{players[1].hand.length} 张</p>
             </div>
             {players[1].role !== PlayerRole.UNDECIDED && (
-              <span className="text-[8px] landscape:text-[6px] px-2 py-0.5 bg-rose-500 text-white rounded-full uppercase font-black tracking-tighter mt-0.5">
+              <span className={`text-[8px] ${isLandscape ? 'text-[6px]' : ''} px-2 py-0.5 bg-rose-500 text-white rounded-full uppercase font-black tracking-tighter mt-0.5`}>
                 {ROLE_MAP[players[1].role]}
               </span>
             )}
@@ -488,18 +513,18 @@ export default function App() {
         </div>
 
         {/* AI Players - Coco (Left) */}
-        <div className="absolute left-4 sm:left-10 top-1/2 -translate-y-1/2 flex flex-col items-center gap-2 z-10 landscape:left-2 landscape:gap-1">
-          <div className={`w-12 h-12 sm:w-20 sm:h-20 landscape:w-10 landscape:h-10 rounded-[1.5rem] sm:rounded-[2.5rem] landscape:rounded-xl flex items-center justify-center border-4 landscape:border-2 transition-all duration-500 ${currentTurn === 2 ? 'bg-rose-400 border-white shadow-2xl scale-110' : 'bg-white border-rose-100 shadow-md'}`}>
-            <Cat className={`w-6 h-6 sm:w-10 sm:h-10 landscape:w-5 landscape:h-5 ${currentTurn === 2 ? 'text-white' : 'text-rose-300'}`} />
+        <div className={`absolute left-4 sm:left-10 top-1/2 -translate-y-1/2 flex flex-col items-center gap-2 z-10 ${isLandscape ? 'left-2 gap-1' : ''}`}>
+          <div className={`w-12 h-12 sm:w-20 sm:h-20 ${isLandscape ? 'w-10 h-10 rounded-xl border-2' : 'rounded-[1.5rem] sm:rounded-[2.5rem] border-4'} flex items-center justify-center transition-all duration-500 ${currentTurn === 2 ? 'bg-rose-400 border-white shadow-2xl scale-110' : 'bg-white border-rose-100 shadow-md'}`}>
+            <Cat className={`w-6 h-6 sm:w-10 sm:h-10 ${isLandscape ? 'w-5 h-5' : ''} ${currentTurn === 2 ? 'text-white' : 'text-rose-300'}`} />
           </div>
-          <div className="bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full border border-rose-100 shadow-sm flex flex-col items-center min-w-[80px] landscape:min-w-[60px]">
-            <p className="font-black text-[10px] sm:text-sm landscape:text-[8px] text-rose-700">{players[2].name}</p>
+          <div className={`bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full border border-rose-100 shadow-sm flex flex-col items-center min-w-[80px] ${isLandscape ? 'min-w-[60px]' : ''}`}>
+            <p className={`font-black text-[10px] sm:text-sm ${isLandscape ? 'text-[8px]' : ''} text-rose-700`}>{players[2].name}</p>
             <div className="flex items-center gap-1">
               <Star className="w-2 h-2 text-amber-400 fill-current" />
-              <p className="text-[8px] sm:text-[10px] landscape:text-[7px] font-bold text-rose-400">{players[2].hand.length} 张</p>
+              <p className={`text-[8px] sm:text-[10px] ${isLandscape ? 'text-[7px]' : ''} font-bold text-rose-400`}>{players[2].hand.length} 张</p>
             </div>
             {players[2].role !== PlayerRole.UNDECIDED && (
-              <span className="text-[8px] landscape:text-[6px] px-2 py-0.5 bg-rose-500 text-white rounded-full uppercase font-black tracking-tighter mt-0.5">
+              <span className={`text-[8px] ${isLandscape ? 'text-[6px]' : ''} px-2 py-0.5 bg-rose-500 text-white rounded-full uppercase font-black tracking-tighter mt-0.5`}>
                 {ROLE_MAP[players[2].role]}
               </span>
             )}
@@ -606,7 +631,7 @@ export default function App() {
       </main>
 
       {/* Player Hand */}
-      <footer className="h-40 sm:h-64 landscape:h-28 bg-white/95 backdrop-blur-3xl border-t-4 border-rose-100 p-2 sm:p-6 landscape:p-1 relative flex justify-center z-40">
+      <footer className="h-40 sm:h-64 landscape:h-32 bg-white/95 backdrop-blur-3xl border-t-4 border-rose-100 p-2 sm:p-6 landscape:p-1 relative flex justify-center z-40">
         <div className="absolute -top-10 left-4 sm:left-10 landscape:-top-6 landscape:left-2 flex items-center gap-3 landscape:gap-1">
           <div className={`w-10 h-10 sm:w-16 sm:h-16 landscape:w-8 landscape:h-8 rounded-2xl landscape:rounded-lg flex items-center justify-center border-4 landscape:border-2 transition-all duration-500 ${currentTurn === 0 ? 'bg-rose-400 border-white shadow-2xl scale-110' : 'bg-white border-rose-100 shadow-md'}`}>
             <User className={`w-5 h-5 sm:w-10 sm:h-10 landscape:w-4 landscape:h-4 ${currentTurn === 0 ? 'text-white' : 'text-rose-300'}`} />
@@ -626,10 +651,9 @@ export default function App() {
             const isSelected = selectedCards.includes(card.id);
             const totalCards = players[0].hand.length;
             
-            // Responsive overlap
-            const isLandscape = typeof window !== 'undefined' && window.innerWidth > window.innerHeight;
-            const baseOverlap = isLandscape ? 18 : (typeof window !== 'undefined' && window.innerWidth < 640 ? 12 : 35);
-            const overlap = Math.min(baseOverlap, (typeof window !== 'undefined' ? window.innerWidth * 0.8 : 800) / totalCards);
+            // Responsive overlap - Increased spacing even more
+            const baseOverlap = isLandscape ? 40 : (windowSize.width < 640 ? 25 : 60);
+            const overlap = Math.min(baseOverlap, (windowSize.width * 0.92) / totalCards);
             const offset = (index - (totalCards - 1) / 2) * overlap;
             
             return (
